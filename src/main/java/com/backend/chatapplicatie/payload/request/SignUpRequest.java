@@ -5,10 +5,14 @@ import java.util.Set;
 import lombok.*;
 
 @Data
-public class SignupRequest {
+public class SignUpRequest {
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
+
+    @NotBlank
+    @Size(min = 3, max = 20)
+    private String fullname;
 
     @NotBlank
     @Size(max = 50)

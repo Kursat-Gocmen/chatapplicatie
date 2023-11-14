@@ -4,7 +4,7 @@ import com.backend.chatapplicatie.models.ERole;
 import com.backend.chatapplicatie.models.Role;
 import com.backend.chatapplicatie.models.User;
 import com.backend.chatapplicatie.payload.request.LoginRequest;
-import com.backend.chatapplicatie.payload.request.SignupRequest;
+import com.backend.chatapplicatie.payload.request.SignUpRequest;
 import com.backend.chatapplicatie.payload.response.JwtResponse;
 import com.backend.chatapplicatie.payload.response.MessageResponse;
 import com.backend.chatapplicatie.repository.RoleRepository;
@@ -56,6 +56,7 @@ public class AuthController {
                     userDetails.getId(),
                     userDetails.getUsername(),
                     userDetails.getEmail(),
+                    userDetails.getFullname(),
                     roles));
         } catch (BadCredentialsException e) {
             return ResponseEntity
@@ -64,7 +65,7 @@ public class AuthController {
         }
     }
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -77,7 +78,7 @@ public class AuthController {
                     .body(new MessageResponse("Email is al in gebruik!"));
         }
 
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(signUpRequest.getUsername(),signUpRequest.getFullname(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
