@@ -11,6 +11,9 @@ import com.backend.chatapplicatie.repository.RoleRepository;
 import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.security.jwt.JwtUtils;
 import com.backend.chatapplicatie.security.services.UserDetailsImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Authentication")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -38,6 +42,8 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
 
+
+    @Operation(summary = "Authenticatie van gebruiker", description = "Verifieert de inloggegevens van een gebruiker en genereert een JWT-token.")
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
@@ -64,6 +70,7 @@ public class AuthController {
                     .body(new MessageResponse("Gebruikersnaam en/of wachtwoord is onjuist!"));
         }
     }
+    @Operation(summary = "Registreer een nieuwe gebruiker", description = "Registreert een nieuwe gebruiker met de opgegeven informatie.")
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
