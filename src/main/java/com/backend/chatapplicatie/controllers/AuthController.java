@@ -11,7 +11,6 @@ import com.backend.chatapplicatie.repository.RoleRepository;
 import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.security.jwt.JwtUtils;
 import com.backend.chatapplicatie.security.services.UserDetailsImpl;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -61,8 +60,8 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponse(jwt,
                     userDetails.getId(),
                     userDetails.getUsername(),
-                    userDetails.getEmail(),
                     userDetails.getFullname(),
+                    userDetails.getEmail(),
                     roles));
         } catch (BadCredentialsException e) {
             return ResponseEntity
