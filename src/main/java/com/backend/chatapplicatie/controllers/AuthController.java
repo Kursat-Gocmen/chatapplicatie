@@ -99,6 +99,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
+    @Operation(summary = "werkt niet")
     public ResponseEntity<?> logoutUser() {
         try {
             SecurityContextHolder.clearContext();
