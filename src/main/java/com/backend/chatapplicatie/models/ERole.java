@@ -1,6 +1,6 @@
 package com.backend.chatapplicatie.models;
 
 public enum ERole {
-    ROLE_USER,
-    ROLE_ADMIN
+    USER_ROLE,
+    ADMIN_ROLE
 }

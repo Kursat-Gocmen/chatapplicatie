@@ -88,7 +88,7 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+        Role userRole = roleRepository.findByName(ERole.USER_ROLE)
                 .orElseThrow(() -> new RuntimeException("Error: Role 'ROLE_USER' not found."));
 
         user.setRoles(Collections.singleton(userRole));
