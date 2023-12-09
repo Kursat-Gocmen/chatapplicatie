@@ -25,26 +25,25 @@ jobs:
           --health-retries 5
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '21'
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '21'
 
-    - name: Build JAR
-      run: ./mvnw clean install
+      - name: Build JAR
+        run: ./mvnw clean install
 
-    - name: Build Docker image
-      run: docker build -t chatapplicatie-backend:latest .
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Log in to Docker Hub
-      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push Docker image to Docker Hub
+        run: |
+          docker build -t ferhatrxls/chatapplicatie-backend:latest .
+          docker push ferhatrxls/chatapplicatie-backend:latest
 
-    - name: Push Docker image to Docker Hub
-      run: docker push chatapplicatie-backend:latest
-
-    - name: Deploy to Docker Compose
-      run: docker-compose up -d
+      - name: Deploy to Docker Compose
+        run: docker-compose up -d
