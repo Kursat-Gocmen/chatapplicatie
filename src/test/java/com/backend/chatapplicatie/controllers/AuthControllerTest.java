@@ -96,7 +96,7 @@ public class AuthControllerTest {
     }
 
 
-    //SERVICE LAAG GETEST
+    //SERVICE LAAG GETEST.
     @InjectMocks
     private UserService userService;
 
