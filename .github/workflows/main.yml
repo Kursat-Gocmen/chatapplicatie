@@ -82,7 +82,6 @@ jobs:
 
 
   snyk-security:
-    needs: test
     permissions:
       contents: read
       security-events: write
