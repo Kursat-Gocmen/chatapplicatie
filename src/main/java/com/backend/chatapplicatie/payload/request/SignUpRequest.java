@@ -1,10 +1,10 @@
 package com.backend.chatapplicatie.payload.request;
 
 import jakarta.validation.constraints.*;
-import java.util.Set;
 import lombok.*;
 
 @Data
+@Builder
 public class SignUpRequest {
     @NotBlank
     @Size(min = 3, max = 20)
@@ -19,9 +19,17 @@ public class SignUpRequest {
     @Email
     private String email;
 
-    private Set<String> roles;
+    private String role;
 
     @NotBlank
     @Size(min = 3, max = 40)
     private String password;
+
+    public SignUpRequest(String username, String fullname, String email, String role, String password) {
+        this.username = username;
+        this.fullname = fullname;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+    }
 }

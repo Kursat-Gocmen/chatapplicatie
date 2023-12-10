@@ -1,9 +1,6 @@
 package com.backend.chatapplicatie.payload.response;
 
 import lombok.*;
-
-import java.util.List;
-
 @Data
 public class JwtResponse {
     private String token;
@@ -12,14 +9,14 @@ public class JwtResponse {
     private String username;
     private String fullname;
     private String email;
-    private List<String> roles;
+    private String role;
 
-    public JwtResponse(String accessToken, Long id, String username, String fullname, String email, List<String> roles) {
+    public JwtResponse(String accessToken, Long id, String username, String fullname, String email, String role) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.fullname = fullname;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
     }
 }
