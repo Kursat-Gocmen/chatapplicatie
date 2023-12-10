@@ -30,70 +30,70 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AuthControllerTest {
 
-//    //CONTROLLER LAAG GETEST
-//    @InjectMocks
-//    AuthController authController;
-//
-//    @Mock
-//    private AuthenticationManager authenticationManager;
-//
-//    @Mock
-//    private JwtUtils jwtUtils;
-//
-//    @Test
-//    public void login_Success() {
-//        // Arrange
-//        LoginRequest loginRequest = new LoginRequest("testUser", "password");
-//
-//        UserDetailsImpl userDetails = new UserDetailsImpl(
-//                1L,
-//                "testUser",
-//                "TestUser",
-//                "test@example.com",
-//                "password",
-//                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
-//        );
-//
-//        // Mock the authentication object
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
-//
-//        // Mock the behavior of jwtUtils.generateJwtToken
-//        when(jwtUtils.generateJwtToken(authentication)).thenReturn("mockedJWT");
-//
-//        // Act
-//        ResponseEntity<?> response = authController.authenticateUser(loginRequest);
-//
-//        // Assert
-//        JwtResponse jwtResponse = (JwtResponse) response.getBody();
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-//        assertThat(jwtResponse.getToken()).isEqualTo("mockedJWT");
-//        assertThat(jwtResponse.getId()).isEqualTo(userDetails.getId());
-//        assertThat(jwtResponse.getUsername()).isEqualTo(userDetails.getUsername());
-//        assertThat(jwtResponse.getFullname()).isEqualTo(userDetails.getFullname());
-//        assertThat(jwtResponse.getEmail()).isEqualTo(userDetails.getEmail());
-//        assertThat(jwtResponse.getRole()).isEqualTo("ROLE_USER");
-//    }
-//
-//    @Test
-//    public void login_Failure() {
-//        // Arrange
-//        LoginRequest loginRequest = new LoginRequest("testUser", "incorrectPassword");
-//
-//        // Mock the behavior of authenticationManager.authenticate to throw BadCredentialsException
-//        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
-//                .thenThrow(BadCredentialsException.class);
-//
-//        // Act
-//        ResponseEntity<?> response = authController.authenticateUser(loginRequest);
-//
-//        // Assert
-//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-//        assertThat(response.getBody()).isInstanceOf(MessageResponse.class);
-//
-//        MessageResponse messageResponse = (MessageResponse) response.getBody();
-//        assertThat(messageResponse.getMessage()).isEqualTo("Gebruikersnaam en/of wachtwoord is onjuist!");
-//    }
+    //CONTROLLER LAAG GETEST
+    @InjectMocks
+    AuthController authController;
+
+    @Mock
+    private AuthenticationManager authenticationManager;
+
+    @Mock
+    private JwtUtils jwtUtils;
+
+    @Test
+    public void login_Success() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("testUser", "password");
+
+        UserDetailsImpl userDetails = new UserDetailsImpl(
+                1L,
+                "testUser",
+                "TestUser",
+                "test@example.com",
+                "password",
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+        );
+
+        // Mock the authentication object
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
+
+        // Mock the behavior of jwtUtils.generateJwtToken
+        when(jwtUtils.generateJwtToken(authentication)).thenReturn("mockedJWT");
+
+        // Act
+        ResponseEntity<?> response = authController.authenticateUser(loginRequest);
+
+        // Assert
+        JwtResponse jwtResponse = (JwtResponse) response.getBody();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(jwtResponse.getToken()).isEqualTo("mockedJWT");
+        assertThat(jwtResponse.getId()).isEqualTo(userDetails.getId());
+        assertThat(jwtResponse.getUsername()).isEqualTo(userDetails.getUsername());
+        assertThat(jwtResponse.getFullname()).isEqualTo(userDetails.getFullname());
+        assertThat(jwtResponse.getEmail()).isEqualTo(userDetails.getEmail());
+        assertThat(jwtResponse.getRole()).isEqualTo("ROLE_USER");
+    }
+
+    @Test
+    public void login_Failure() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("testUser", "incorrectPassword");
+
+        // Mock the behavior of authenticationManager.authenticate to throw BadCredentialsException
+        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
+                .thenThrow(BadCredentialsException.class);
+
+        // Act
+        ResponseEntity<?> response = authController.authenticateUser(loginRequest);
+
+        // Assert
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+        assertThat(response.getBody()).isInstanceOf(MessageResponse.class);
+
+        MessageResponse messageResponse = (MessageResponse) response.getBody();
+        assertThat(messageResponse.getMessage()).isEqualTo("Gebruikersnaam en/of wachtwoord is onjuist!");
+    }
 
 
     //SERVICE LAAG GETEST.
