@@ -13,8 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +20,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.test.context.TestPropertySource;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -98,7 +94,6 @@ public class AuthControllerTest {
         MessageResponse messageResponse = (MessageResponse) response.getBody();
         assertThat(messageResponse.getMessage()).isEqualTo("Gebruikersnaam en/of wachtwoord is onjuist!");
     }
-
 
     //SERVICE LAAG GETEST.
     @InjectMocks
