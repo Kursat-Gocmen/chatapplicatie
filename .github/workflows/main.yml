@@ -1,11 +1,10 @@
 name: CI/CD Workflow
 
 on:
-  workflow_dispatch:
-    push:
-      branches: [ "master" ]
-    pull_request:
-      branches: [ "master" ]
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -80,6 +79,7 @@ jobs:
           export SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5433/postgres'
           export SPRING_DATASOURCE_USERNAME='postgres'
           export SPRING_DATASOURCE_PASSWORD='postgres'
+
       - name: Report
         uses: dorny/test-reporter@v1
         with:
