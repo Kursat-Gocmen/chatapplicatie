@@ -2,14 +2,11 @@ package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.ChatapplicatieApplication;
 import com.backend.chatapplicatie.models.User;
-import com.backend.chatapplicatie.repository.RoleRepository;
 import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.services.UserService;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
