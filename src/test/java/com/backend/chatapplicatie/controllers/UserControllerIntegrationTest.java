@@ -5,6 +5,8 @@ import com.backend.chatapplicatie.models.User;
 import com.backend.chatapplicatie.repository.RoleRepository;
 import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.services.UserService;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -34,18 +36,6 @@ public class UserControllerIntegrationTest {
 
     @MockBean
     private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @BeforeAll
-    public void setup() {
-        userRepository.flush();
-        roleRepository.flush();
-    }
     @Test
     public void testGetAllUsers() throws Exception {
         User user1 = new User("Ferhat", "Ferhat Gocmen", "Ferhat@example.com", "password123");

@@ -6,6 +6,7 @@ import com.backend.chatapplicatie.payload.request.SignUpRequest;
 import com.backend.chatapplicatie.repository.RoleRepository;
 import com.backend.chatapplicatie.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,17 +31,6 @@ public class AuthControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @BeforeAll
-    public void setup() {
-        userRepository.flush();
-        roleRepository.flush();
-    }
     @Test
     public void testRegisterUser() throws Exception {
 
