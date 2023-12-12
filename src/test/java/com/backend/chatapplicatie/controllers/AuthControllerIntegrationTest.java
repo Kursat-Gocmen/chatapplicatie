@@ -2,8 +2,12 @@ package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.payload.request.LoginRequest;
 import com.backend.chatapplicatie.payload.request.SignUpRequest;
+import com.backend.chatapplicatie.repository.RoleRepository;
+import com.backend.chatapplicatie.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AuthControllerIntegrationTest {
 
     @Autowired
@@ -24,6 +29,17 @@ public class AuthControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @BeforeAll
+    public void setup() {
+        userRepository.flush();
+        roleRepository.flush();
+    }
     @Test
     public void testRegisterUser() throws Exception {
 
