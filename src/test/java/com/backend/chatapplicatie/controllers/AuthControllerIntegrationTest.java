@@ -1,5 +1,6 @@
 package com.backend.chatapplicatie.controllers;
 
+import com.backend.chatapplicatie.ChatapplicatieApplication;
 import com.backend.chatapplicatie.payload.request.LoginRequest;
 import com.backend.chatapplicatie.payload.request.SignUpRequest;
 import com.backend.chatapplicatie.repository.RoleRepository;
@@ -17,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = ChatapplicatieApplication.class)
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
