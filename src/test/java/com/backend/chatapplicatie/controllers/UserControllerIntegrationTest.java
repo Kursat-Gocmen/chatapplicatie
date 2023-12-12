@@ -2,11 +2,14 @@ package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.ChatapplicatieApplication;
 import com.backend.chatapplicatie.models.User;
+import com.backend.chatapplicatie.repository.RoleRepository;
+import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.services.UserService;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.Before;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,8 +23,10 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = ChatapplicatieApplication.class)
 @AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:application-test.properties")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserControllerIntegrationTest {
 
     @Autowired
@@ -29,6 +34,14 @@ public class UserControllerIntegrationTest {
 
     @MockBean
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+    @AfterEach
+    public void cleanup() {
+        // Clean up the user table
+        userRepository.deleteAll();
+    }
     @Test
     public void testGetAllUsers() throws Exception {
         User user1 = new User("Ferhat", "Ferhat Gocmen", "Ferhat@example.com", "password123");
