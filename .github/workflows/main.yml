@@ -42,7 +42,16 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: 'postgres'
+          POSTGRES_PASSWORD: 'postgres'
+          POSTGRES_DB: 'postgres'
+        ports:
+          - 5433:5433
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v3
 
@@ -66,8 +75,11 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run Tests
-        run: mvn test
-
+        run: |
+          mvn test
+          export SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5433/postgres'
+          export SPRING_DATASOURCE_USERNAME='postgres'
+          export SPRING_DATASOURCE_PASSWORD='postgres'
 
 
 #  snyk-security:
