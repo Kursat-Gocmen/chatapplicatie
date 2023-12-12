@@ -5,12 +5,14 @@ import static org.mockito.Mockito.*;
 import java.util.Optional;
 import com.backend.chatapplicatie.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserDetailsServiceImplTest {
 
     @Mock
