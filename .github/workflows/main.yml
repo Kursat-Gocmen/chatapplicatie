@@ -67,9 +67,7 @@ jobs:
 
       - name: Run Tests
         run: mvn test
-      - name: Report
-        uses: dorny/test-reporter@v1
-        with:
+
 
 
 #  snyk-security:
