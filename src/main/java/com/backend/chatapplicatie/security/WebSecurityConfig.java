@@ -2,7 +2,7 @@ package com.backend.chatapplicatie.security;
 
 import com.backend.chatapplicatie.security.jwt.AuthEntryPointJwt;
 import com.backend.chatapplicatie.security.jwt.AuthTokenFilter;
-import com.backend.chatapplicatie.security.services.UserDetailsServiceImpl;
+import com.backend.chatapplicatie.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

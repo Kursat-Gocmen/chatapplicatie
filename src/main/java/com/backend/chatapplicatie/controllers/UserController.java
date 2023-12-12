@@ -2,7 +2,7 @@ package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.models.User;
 import com.backend.chatapplicatie.payload.response.MessageResponse;
-import com.backend.chatapplicatie.security.services.UserService;
+import com.backend.chatapplicatie.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

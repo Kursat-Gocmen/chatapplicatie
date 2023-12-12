@@ -4,7 +4,7 @@ package com.backend.chatapplicatie.security.jwt;
 
 import java.io.IOException;
 
-import com.backend.chatapplicatie.security.services.UserDetailsServiceImpl;
+import com.backend.chatapplicatie.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

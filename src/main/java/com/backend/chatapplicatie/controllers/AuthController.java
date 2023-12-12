@@ -10,7 +10,7 @@ import com.backend.chatapplicatie.payload.response.MessageResponse;
 import com.backend.chatapplicatie.repository.RoleRepository;
 import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.security.jwt.JwtUtils;
-import com.backend.chatapplicatie.security.services.UserDetailsImpl;
+import com.backend.chatapplicatie.services.UserDetailsImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

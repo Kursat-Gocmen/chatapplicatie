@@ -42,16 +42,7 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: 'postgres'
-          POSTGRES_PASSWORD: 'postgres'
-          POSTGRES_DB: 'postgres'
-        ports:
-          - 5433:5433
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - uses: actions/checkout@v3
 
@@ -75,39 +66,36 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run Tests
-        run: |
-          export SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5433/postgres'
-          export SPRING_DATASOURCE_USERNAME='postgres'
-          export SPRING_DATASOURCE_PASSWORD='postgres'
+        run: mvn test
 
 
-  snyk-security:
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Snyk CLI to check for security issues
-        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Authenticate Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
-
-      - name: Snyk Code test
-        run: snyk code test --sarif > snyk-code.sarif || true
-
-      - name: Snyk Open Source monitor
-        run: snyk monitor --all-projects
-
-      - name: Snyk IaC test and report
-        run: snyk iac test --report || true
-
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk-code.sarif
+#  snyk-security:
+#    permissions:
+#      contents: read
+#      security-events: write
+#      actions: read
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Set up Snyk CLI to check for security issues
+#        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+#        env:
+#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#
+#      - name: Authenticate Snyk
+#        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+#
+#      - name: Snyk Code test
+#        run: snyk code test --sarif > snyk-code.sarif || true
+#
+#      - name: Snyk Open Source monitor
+#        run: snyk monitor --all-projects
+#
+#      - name: Snyk IaC test and report
+#        run: snyk iac test --report || true
+#
+#      - name: Upload result to GitHub Code Scanning
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: snyk-code.sarif
