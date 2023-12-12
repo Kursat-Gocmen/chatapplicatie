@@ -1,8 +1,12 @@
 package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.models.User;
+import com.backend.chatapplicatie.repository.RoleRepository;
+import com.backend.chatapplicatie.repository.UserRepository;
 import com.backend.chatapplicatie.services.UserService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserControllerIntegrationTest {
 
     @Autowired
@@ -29,6 +34,17 @@ public class UserControllerIntegrationTest {
     @MockBean
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @BeforeAll
+    public void setup() {
+        userRepository.flush();
+        roleRepository.flush();
+    }
     @Test
     public void testGetAllUsers() throws Exception {
         User user1 = new User("Ferhat", "Ferhat Gocmen", "Ferhat@example.com", "password123");
