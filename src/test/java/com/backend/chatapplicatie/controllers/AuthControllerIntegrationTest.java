@@ -31,6 +31,18 @@ public class AuthControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @AfterAll
+    public void down() {
+        userRepository.flush();
+        roleRepository.flush();
+    }
+
     @Test
     public void testRegisterUser() throws Exception {
 

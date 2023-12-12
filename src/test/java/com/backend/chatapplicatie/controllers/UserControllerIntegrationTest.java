@@ -36,6 +36,19 @@ public class UserControllerIntegrationTest {
 
     @MockBean
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @AfterAll
+    public void down() {
+        userRepository.flush();
+        roleRepository.flush();
+    }
+
     @Test
     public void testGetAllUsers() throws Exception {
         User user1 = new User("Ferhat", "Ferhat Gocmen", "Ferhat@example.com", "password123");
