@@ -30,15 +30,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -DskipTests
 
-      - name: Build and tag Docker images
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/chatapplicatie-backend:latest .
-
-      - name: Push Docker images to Docker Hub
-        run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/chatapplicatie-backend:latest
-
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -65,7 +56,24 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run Tests with H2
-        run: mvn test -Dspring.config.location=src/main/resources/application-test.properties
+        run: mvn test
+
+  build-and-push-docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and tag Docker images
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/chatapplicatie-backend:latest .
+
+      - name: Push Docker images to Docker Hub
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/chatapplicatie-backend:latest
+
 
 
 
