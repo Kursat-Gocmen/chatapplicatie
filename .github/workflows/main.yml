@@ -56,7 +56,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run Tests with H2
-        run: mvn test
+        run: mvn test -Dspring.config.location=src/main/resources/application-test.properties
 
   build-and-push-docker:
     needs: test
