@@ -17,7 +17,11 @@
 
 	<properties>
 		<java.version>21</java.version>
+		<sonar.organization>kursat-gocmen</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.projectKey>Kursat-Gocmen_chatapplicatie</sonar.projectKey>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -116,7 +120,8 @@
             <version>5.3.1</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+	</dependencies>
+
 
 	<build>
 		<plugins>

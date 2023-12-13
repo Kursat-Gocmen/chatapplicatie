@@ -34,8 +34,27 @@ jobs:
       - name: Run Tests with H2
         run: mvn test -Dspring.config.location=src/main/resources/application-test.properties
 
-  build:
+  sonarcloud:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'oracle'
+          cache: maven
+
+      - name: Configure SonarCloud Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests=true
+
+  build:
+    needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -56,7 +75,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn clean install -DskipTests
+        run: mvn clean install -DskipTests=true
 
       - name: Build and tag Docker images
         run: |
@@ -66,3 +85,4 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}/chatapplicatie-backend:latest
+#
