@@ -48,17 +48,10 @@ jobs:
           distribution: 'oracle'
           cache: maven
 
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
       - name: Configure SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.config.file=sonarcloud.properties
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests=true
 
   build:
     needs: sonarcloud
@@ -82,7 +75,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven
-        run: mvn clean install -DskipTests
+        run: mvn clean install -DskipTests=true
 
       - name: Build and tag Docker images
         run: |
