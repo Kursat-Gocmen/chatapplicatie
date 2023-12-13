@@ -1,4 +1,4 @@
-package com.backend.chatapplicatie.security.services;
+package com.backend.chatapplicatie.services;
 
 import com.backend.chatapplicatie.models.User;
 import org.springframework.beans.factory.annotation.Autowired;

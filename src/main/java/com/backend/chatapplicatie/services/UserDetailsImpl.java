@@ -1,4 +1,4 @@
-package com.backend.chatapplicatie.security.services;
+package com.backend.chatapplicatie.services;
 
 import java.io.Serial;
 import java.util.Collection;

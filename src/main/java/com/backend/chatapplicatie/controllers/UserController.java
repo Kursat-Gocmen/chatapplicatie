@@ -2,10 +2,10 @@ package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.models.User;
 import com.backend.chatapplicatie.payload.response.MessageResponse;
-import com.backend.chatapplicatie.security.services.UserService;
+import com.backend.chatapplicatie.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +16,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/usermanagement")
 @Tag(name = "CRUD")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/users")
     @Operation(summary = "Alle gebruikers ophalen", description = "Haal een lijst op van alle gebruikers.")

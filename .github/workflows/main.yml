@@ -7,7 +7,35 @@ on:
     branches: [ "master" ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'oracle'
+          cache: maven
+
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.4
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Run Tests with H2
+        run: mvn test -Dspring.config.location=src/main/resources/application-test.properties
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,76 +66,3 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}/chatapplicatie-backend:latest
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: 'postgres'
-          POSTGRES_PASSWORD: 'postgres'
-          POSTGRES_DB: 'postgres'
-        ports:
-          - 5433:5433
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'oracle'
-          cache: maven
-
-      - name: Setup Maven
-        uses: stCarolas/setup-maven@v4.5
-        with:
-          maven-version: 3.9.4
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
-      - name: Run Tests
-        run: |
-          export SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5433/postgres'
-          export SPRING_DATASOURCE_USERNAME='postgres'
-          export SPRING_DATASOURCE_PASSWORD='postgres'
-
-
-  snyk-security:
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Snyk CLI to check for security issues
-        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Authenticate Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
-
-      - name: Snyk Code test
-        run: snyk code test --sarif > snyk-code.sarif || true
-
-      - name: Snyk Open Source monitor
-        run: snyk monitor --all-projects
-
-      - name: Snyk IaC test and report
-        run: snyk iac test --report || true
-
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk-code.sarif
