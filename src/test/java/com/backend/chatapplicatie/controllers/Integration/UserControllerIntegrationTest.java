@@ -1,4 +1,4 @@
-package com.backend.chatapplicatie.controllers;
+package com.backend.chatapplicatie.controllers.Integration;
 
 import com.backend.chatapplicatie.ChatapplicatieApplication;
 import com.backend.chatapplicatie.models.User;
