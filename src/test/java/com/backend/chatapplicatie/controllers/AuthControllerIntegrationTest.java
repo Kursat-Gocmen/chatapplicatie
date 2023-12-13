@@ -1,4 +1,3 @@
-/*
 package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.ChatapplicatieApplication;
@@ -65,4 +64,3 @@ public class AuthControllerIntegrationTest {
                 .andExpect(jsonPath("$.token").isNotEmpty());
     }
 }
-*/
