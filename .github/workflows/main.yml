@@ -58,7 +58,7 @@ jobs:
       - name: Configure SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=kursat-gocmen -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Kursat-Gocmen_chatapplicatie -Dsonar.jdbc.url=jdbc:h2:mem:sonar
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.config.file=sonarcloud.properties
 
   build:
     needs: sonarcloud
