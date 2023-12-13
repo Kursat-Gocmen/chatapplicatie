@@ -33,14 +33,18 @@ class UserServiceTest {
         List<User> result = userService.getAllUsers();
 
         // Assert
-        assertThat(result).isNotNull();
-        assertThat(result).hasSize(2);
-        assertThat(result.get(0).getUsername()).isEqualTo("username");
-        assertThat(result.get(0).getEmail()).isEqualTo("testuser1@test.nl");
-        assertThat(result.get(0).getPassword()).isNull();
-        assertThat(result.get(1).getUsername()).isEqualTo("username2");
-        assertThat(result.get(1).getEmail()).isEqualTo("testuser2@test.nl");
-        assertThat(result.get(1).getPassword()).isNull();
+        assertThat(result)
+                .isNotNull()
+                .hasSize(2);
+
+        assertThat(result.get(0))
+                .extracting(User::getUsername, User::getEmail, User::getPassword)
+                .containsExactly("username", "testuser1@test.nl", null);
+
+        assertThat(result.get(1))
+                .extracting(User::getUsername, User::getEmail, User::getPassword)
+                .containsExactly("username2", "testuser2@test.nl", null);
+
     }
 
     @Test
