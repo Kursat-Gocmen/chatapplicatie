@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UserControllerIntegrationTest {
+class UserControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -40,7 +40,7 @@ public class UserControllerIntegrationTest {
         userRepository.deleteAll();
     }
     @Test
-    public void testGetAllUsers() throws Exception {
+    void testGetAllUsers() throws Exception {
         User user1 = new User("Ferhat", "Ferhat Gocmen", "Ferhat@example.com", "password123");
         User user2 = new User("Onur", "Onur Dem", "Onur@example.com", "password456");
 
@@ -58,7 +58,7 @@ public class UserControllerIntegrationTest {
 
 
     @Test
-    public void testDeleteUser() throws Exception {
+    void testDeleteUser() throws Exception {
         Mockito.when(userService.userExists(anyLong())).thenReturn(true);
 
         mockMvc.perform(delete("/usermanagement/{id}", 1L)
@@ -68,7 +68,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void testDeleteUserNotFound() throws Exception {
+    void testDeleteUserNotFound() throws Exception {
         Mockito.when(userService.userExists(anyLong())).thenReturn(false);
 
         mockMvc.perform(delete("/usermanagement/{id}", 999L)

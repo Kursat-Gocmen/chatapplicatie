@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
@@ -21,7 +21,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
-    public void getAllUsers_Success() {
+    void getAllUsers_Success() {
         // Arrange
         List<User> mockUsers = Arrays.asList(
                 new User("username", "testuser1", "testuser1@test.nl", null),
@@ -44,7 +44,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deleteUser_Success() {
+    void deleteUser_Success() {
         // Arrange
         Long userId = 1L;
 
@@ -56,7 +56,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void userExists_True() {
+    void userExists_True() {
         // Arrange
         Long userId = 1L;
         when(userRepository.existsById(userId)).thenReturn(true);
@@ -68,7 +68,7 @@ public class UserServiceTest {
         assertThat(result).isTrue();
     }
     @Test
-    public void userExists_False() {
+    void userExists_False() {
         // Arrange
         Long userId = 2L;
         when(userRepository.existsById(userId)).thenReturn(false);

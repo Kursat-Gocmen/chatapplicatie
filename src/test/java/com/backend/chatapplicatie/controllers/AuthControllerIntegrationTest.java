@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AuthControllerIntegrationTest {
+class AuthControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,7 +37,7 @@ public class AuthControllerIntegrationTest {
         userRepository.deleteAll();
     }
     @Test
-    public void testRegisterUser() throws Exception {
+    void testRegisterUser() throws Exception {
 
         SignUpRequest signUpRequest = new SignUpRequest("testuser", "Test User", "testuser@example.com", "USER_ROLE", "password");
 
@@ -49,7 +49,7 @@ public class AuthControllerIntegrationTest {
     }
 
     @Test
-    public void testAuthenticateUser() throws Exception {
+    void testAuthenticateUser() throws Exception {
         SignUpRequest signUpRequest = new SignUpRequest("testuser", "Test User", "testuser@example.com", "USER_ROLE", "password");
 
         mockMvc.perform(post("/api/auth/register")
