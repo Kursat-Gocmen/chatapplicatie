@@ -55,10 +55,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: SonarCloud Analysis
+      - name: Configure SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=kursat-gocmen -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Kursat-Gocmen_chatapplicatie
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=kursat-gocmen -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Kursat-Gocmen_chatapplicatie -Dsonar.jdbc.url=jdbc:h2:mem:sonar
 
   build:
     needs: sonarcloud
