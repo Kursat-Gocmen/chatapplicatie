@@ -1,4 +1,3 @@
-/*
 package com.backend.chatapplicatie.services;
 
 import com.backend.chatapplicatie.models.User;
@@ -81,4 +80,3 @@ public class UserServiceTest {
         assertThat(result).isFalse();
     }
 }
-*/

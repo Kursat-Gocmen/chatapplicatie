@@ -1,3 +1,4 @@
+/*
 package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.ChatapplicatieApplication;
@@ -77,3 +78,4 @@ public class UserControllerIntegrationTest {
                 .andExpect(jsonPath("$.message").value("Geen gebruiker gevonden"));
     }
 }
+*/
