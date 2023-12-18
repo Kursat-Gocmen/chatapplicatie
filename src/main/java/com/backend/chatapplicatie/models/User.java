@@ -44,9 +44,9 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> role = new HashSet<>();
 
-    public User(String username, String fullname, String email, String password) {
+    public User(String username, String fullname, String email, String password ) {
         this.username = username;
         this.fullname = fullname;
         this.email = email;

@@ -1,6 +1,7 @@
 package com.backend.chatapplicatie.controllers;
 
 import com.backend.chatapplicatie.models.User;
+import com.backend.chatapplicatie.payload.request.UpdateUserRequest;
 import com.backend.chatapplicatie.payload.response.MessageResponse;
 import com.backend.chatapplicatie.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +33,16 @@ public class UserController {
     public ResponseEntity<MessageResponse> deleteUser(@PathVariable Long id) {
         if (userService.userExists(id)) { userService.deleteUser(id);
             return ResponseEntity.ok(new MessageResponse("Gebruiker succesvol verwijderd"));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Geen gebruiker gevonden"));
+        }
+    }
+    @PutMapping("/{id}")
+    @Operation(summary = "Gebruiker bijwerken op basis van ID", description = "Werk de gegevens van een gebruiker bij op basis van hun ID.")
+    public ResponseEntity<MessageResponse> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+        if (userService.userExists(id)) {
+            userService.updateUser(id, updateUserRequest);
+            return ResponseEntity.ok(new MessageResponse("Gebruiker succesvol bijgewerkt"));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Geen gebruiker gevonden"));
         }
