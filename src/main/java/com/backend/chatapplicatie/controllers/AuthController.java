@@ -83,10 +83,10 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Role userRole = roleRepository.findByName(ERole.USER_ROLE)
+        Role userRole = roleRepository.findByName(ERole.USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role 'ROLE_USER' not found."));
 
-        user.setRoles(Collections.singleton(userRole));
+        user.setRole(Collections.singleton(userRole));
 
         userRepository.save(user);
 
@@ -94,7 +94,6 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    @Operation(summary = "werkt niet")
     public ResponseEntity<?> logoutUser() {
         try {
             SecurityContextHolder.clearContext();
