@@ -56,7 +56,7 @@ jobs:
       - name: Configure SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Pcoverage -DskipTests=true
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Pcoverage
 
   build:
     needs: sonarcloud
