@@ -48,7 +48,7 @@ class UserControllerIntegrationTest {
 
         given(userService.getAllUsers()).willReturn(mockUsers);
 
-        mockMvc.perform(get("/usermanagement/users")
+        mockMvc.perform(get("/api/usermanagement/users")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -61,7 +61,7 @@ class UserControllerIntegrationTest {
     void testDeleteUser() throws Exception {
         Mockito.when(userService.userExists(anyLong())).thenReturn(true);
 
-        mockMvc.perform(delete("/usermanagement/{id}", 1L)
+        mockMvc.perform(delete("/api/usermanagement/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("Gebruiker succesvol verwijderd"));
@@ -71,7 +71,7 @@ class UserControllerIntegrationTest {
     void testDeleteUserNotFound() throws Exception {
         Mockito.when(userService.userExists(anyLong())).thenReturn(false);
 
-        mockMvc.perform(delete("/usermanagement/{id}", 999L)
+        mockMvc.perform(delete("/api/usermanagement/{id}", 999L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Geen gebruiker gevonden"));

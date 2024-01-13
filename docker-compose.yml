@@ -12,6 +12,13 @@ services:
     depends_on:
       - postgresdb
 
+  frontend:
+    image: ferhatrxls/chatapplicatie-frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
   postgresdb:
     image: postgres:latest
     environment:
