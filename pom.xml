@@ -20,6 +20,7 @@
 		<sonar.organization>kursat-gocmen</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.projectKey>Kursat-Gocmen_chatapplicatie</sonar.projectKey>
+		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 
